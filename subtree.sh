@@ -33,6 +33,7 @@ for dir in `ls`; do
         git --no-pager log --since="yesterday" \
           --date=short \
           --pretty=format:"$(git config --get remote.origin.url | awk -F '/' '{ print $2 }' | awk -F '.' '{ print $1 }'): %ad - [%s]" --author="$(git config --get user.name)" >> $FILENAME 
+        echo "" >> $FILENAME
       else
         echo "      $dir isn't a git repo"
       fi;
@@ -45,5 +46,9 @@ for dir in `ls`; do
     echo "  $dir is not a directory";
   fi;
 done;
+
+uniq $FILENAME > $FILENAME.final
+rm $FILENAME
+cat $FILENAME.final
 
 cd $CURRENT;
