@@ -49,10 +49,19 @@ for dir in `ls`; do
       debug "  Entered `pwd`";
       if [ -e .git ]; then
 
+        REPO_NAME=$(git config --get remote.origin.url | awk -F '/' '{ print $2 }' | awk -F '.' '{ print $1 }')
+
+        if [ -z "$REPO_NAME" ]; then
+          REPO_NAME=$(echo $dir | awk -F "/" '{print $NF}' -);
+        fi;
+
+        USER_NAME=$(git config --get user.name)
+
         debug "    Running in `pwd`"
         git --no-pager log --since="$BEGINNING" \
           --date=short \
-          --pretty=format:"$(git config --get remote.origin.url | awk -F '/' '{ print $2 }' | awk -F '.' '{ print $1 }'): %ad - [%s]" --author="$(git config --get user.name)" >> $FILENAME 
+          --pretty=format:"$REPO_NAME: %ad - [%s] [%h]" \
+          --author="$USER_NAME" >> $FILENAME
         printf "\n\n" >> $FILENAME
       else
         debug "      $dir isn't a git repo"
