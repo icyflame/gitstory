@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+CURRENT=`pwd`
+FILENAME="$CURRENT/here_out_`date +%s`"
+
+touch $FILENAME
+
+DEBUG="YES"
+DEBUG=""
+
+function debug {
+  if [[ $DEBUG == "YES" ]]; then
+    echo $@;
+  fi
+}
+
+BEGINNING="yesterday"
+if [ -n "$1" ]; then
+  BEGINNING="$1"
+fi
+
+echo "Found `ls | wc -l` files under `pwd`"
+echo "Searching for commits from $BEGINNING"
+echo "Output goes to $FILENAME.final"
+echo
+echo
+dir=`pwd`
+if [ -e .git ]; then
+  REPO_NAME=$(git config --get remote.origin.url | awk -F '/' '{ print $2 }' | awk -F '.' '{ print $1 }')
+
+  if [ -z "$REPO_NAME" ]; then
+    REPO_NAME=$(echo $dir | awk -F "/" '{print $NF}' -);
+  fi;
+
+  USER_NAME=$(git config --get user.name)
+
+  debug "    Running in `pwd`"
+  git --no-pager log --since="$BEGINNING" \
+    --date=short \
+    --pretty=format:"$REPO_NAME: %ad - [%s] [%h]" \
+    --author="$USER_NAME" >> $FILENAME
+  printf "\n\n" >> $FILENAME
+else
+  debug "      $dir isn't a git repo"
+fi;
+
+uniq $FILENAME > $FILENAME.final
+rm $FILENAME
+cat $FILENAME.final
+
+cd $CURRENT;
