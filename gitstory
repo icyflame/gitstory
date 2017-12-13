@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+CONFIG_FILE="$HOME/.gitstory_config"
+
 CURRENT=`pwd`
 FILENAME="$CURRENT/final_out_`date +%s`"
 
@@ -20,8 +22,22 @@ function debug {
   # cd $1;
 # fi;
 
+DIRS=()
+ROOT_DIR=`pwd`
+
 if [ -n "$1" ]; then
-  cd $1;
+  if [ "$1" == "--config" ]; then
+    if [ -e $CONFIG_FILE ]; then
+      DIRS=`cat $CONFIG_FILE`;
+      ROOT_DIR="$CONFIG_FILE"
+    else
+      echo "$CONFIG_FILE does not exist. Please create and add a few lines before you can use this option!"
+      exit 1
+    fi
+  else
+    cd $1;
+    DIRS=`ls`;
+  fi
 fi;
 
 BEGINNING="yesterday"
@@ -29,13 +45,13 @@ if [ -n "$2" ]; then
   BEGINNING="$2"
 fi
 
-echo "Found `ls | wc -l` files under `pwd`"
+echo "Found `echo "$DIRS" | wc -l` files under $ROOT_DIR"
 echo "Searching for commits from $BEGINNING"
 echo "Output goes to $FILENAME.final"
 echo
 echo
 
-for dir in `ls`; do
+for dir in $DIRS; do
   debug "Searching for $dir in `pwd`";
 
   # check if this is a directory

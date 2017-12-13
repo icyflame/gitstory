@@ -7,6 +7,7 @@
 - [Introduction](#introduction)
 - [Usage](#usage)
   - [gitstory](#gitstory)
+  - [gitstory --config](#gitstory---config)
   - [gitstory_here](#gitstory_here)
 - [Install](#install)
 - [Attribution](#attribution)
@@ -74,6 +75,44 @@ mfqp: 2017-11-17 - [change the base URL to static.metakgp.org] [7766596]
 `root_dir`
 
 Default: Present directory
+
+`since`
+
+Default: yesterday
+
+### `gitstory --config`
+
+> You can put a config file consisting of paths to repositories that you want
+> regular updates from.
+
+Config file location: `$HOME/.gitstory_config`
+
+#### Input
+
+```sh
+$ ./gitstory --config [since]
+
+$ ./gitstory --config "last month"
+```
+
+#### Output
+
+```sh
+$ ./gitstory --config "last month"  
+Found 2 files under /home/siddharth/.gitstory_config
+Searching for commits from last month
+Output goes to ./final_out_1513179251.final
+
+
+mfqp: 2017-11-17 - [fix the sed commands for the new location of papers] [a655100]
+mfqp: 2017-11-17 - [change the base URL to static.metakgp.org] [7766596]
+
+mftp: 2017-11-23 - [remove unnecessary files for self sufficient version] [a7b5745]
+mftp: 2017-11-23 - [add bootstrap, refresh page every 50 seconds] [e4fcf9e]
+mftp: 2017-11-21 - [update.py in this branch can be used as a self-sufficient script] [21a1da0]
+```
+
+#### Options
 
 `since`
 
