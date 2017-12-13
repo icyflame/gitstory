@@ -87,6 +87,16 @@ Default: yesterday
 
 Config file location: `$HOME/.gitstory_config`
 
+Config file contents:
+
+```txt
+/media/username/personal/repo_1
+/media/username/work/repo_2
+/media/username/arbit/repo_3
+```
+
+(Full paths to each git repository, one on each line of this file)
+
 #### Input
 
 ```sh
