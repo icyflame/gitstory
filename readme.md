@@ -29,7 +29,7 @@ root_dir
 ```
 
 This script will write to a file the list of commits that have been made in
-these git repositories since a given time. See [Usage](#usage)
+these git repositories since a given time. See [Usage](#usage) for examples.
 
 ## Usage
 
@@ -38,7 +38,7 @@ these git repositories since a given time. See [Usage](#usage)
 #### Input
 
 ```sh
-# to print a list of two repositories
+# to print the history of a list of repositories
 
 $ ./gitstory [root_dir] [since]
 
@@ -47,17 +47,7 @@ $ ./gitstory ../work_stuff "January 2016"
 $ ./gitstory ../academics "1 month"
 ```
 
-#### Options
-
-`root_dir`
-
-Default: Present directory
-
-`since`
-
-Default: yesterday
-
-#### Sample Output
+#### Output
 
 ```sh
 $ ./gitstory ../metakgp "Nov 2016"
@@ -79,6 +69,16 @@ mfqp: 2017-11-17 - [fix the sed commands for the new location of papers][a655100
 mfqp: 2017-11-17 - [change the base URL to static.metakgp.org] [7766596]
 ```
 
+#### Options
+
+`root_dir`
+
+Default: Present directory
+
+`since`
+
+Default: yesterday
+
 ### `gitstory_here`
 
 #### Input
@@ -90,12 +90,6 @@ $ ./gitstory_here "1 week"
 
 $ ./gitstory_here "last week"
 ```
-
-#### Options
-
-since
-
-Default: yesterday
 
 #### Output
 
@@ -115,19 +109,32 @@ gitstory: 2017-12-11 - [ignore output files] [4bfaea5]
 gitstory: 2017-12-11 - [initial commit] [09c11c4]
 ```
 
+#### Options
+
+`since`
+
+Default: yesterday
+
 ## Install
 
 Get the script and move it into a folder that's in the `$PATH`
 
 ```sh
+# for gitstory
 $ wget https://raw.githubusercontent.com/icyflame/gitstory/master/gitstory
 $ mv gitstory /usr/local/bin
+
+# gitstory_here
+$ wget https://raw.githubusercontent.com/icyflame/gitstory/master/gitstory_here
+$ mv gitstory_here /usr/local/bin
 ```
 
-There's another script called
-[`gitstory_here`](https://raw.githubusercontent.com/icyflame/gitstory/master/gitstory)
-which takes the present folder and prints something similar. That script is
-useful if you only have one folder which you want to track.
+Note: The script
+[`gitstory_here`](https://raw.githubusercontent.com/icyflame/gitstory/master/gitstory_here)
+prints the list of commits in the given period for only the present git
+repository. This script is useful if you only have one folder which you want to
+track, on a regular basis (such as for a daily stand-up at work). (A git alias
+can do the same thing, if you would prefer to not use a script)
 
 ## Attribution
 
