@@ -122,10 +122,12 @@ Get the script and move it into a folder that's in the `$PATH`
 ```sh
 # for gitstory
 $ wget https://raw.githubusercontent.com/icyflame/gitstory/master/gitstory
+$ chmod +x gitstory
 $ mv gitstory /usr/local/bin
 
 # gitstory_here
 $ wget https://raw.githubusercontent.com/icyflame/gitstory/master/gitstory_here
+$ chmod +x gitstory_here
 $ mv gitstory_here /usr/local/bin
 ```
 
