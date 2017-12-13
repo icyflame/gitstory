@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 CURRENT=`pwd`
 FILENAME="$CURRENT/final_out_`date +%s`"
 
